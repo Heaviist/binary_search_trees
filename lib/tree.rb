@@ -19,4 +19,10 @@ class Tree
 
     @root = root
   end
+
+  # def insert(value)
+  #   return build_tree([value]) if @root.nil?
+
+  #   compare(@root.left, value) if value < root.data
+  # end
 end
