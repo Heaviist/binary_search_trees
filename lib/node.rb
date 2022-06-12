@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Node class used to create a new node for the BST.
+# Initializes a new node for the BST. Includes Comparable mixin.
 class Node
   include Comparable
 
