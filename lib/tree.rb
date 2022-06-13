@@ -5,11 +5,11 @@ class Tree
   attr_accessor :root
 
   def initialize(array)
-    @array = array.uniq.sort
-    @root = nil
+    @base_array = array.uniq.sort
+    @root = Node.new(nil)
   end
 
-  def build_tree(array = @array, index_start = 0, index_end = (array.size - 1))
+  def build_tree(array = @base_array, index_start = 0, index_end = (array.size - 1))
     return if index_start > index_end
 
     mid = (index_start + index_end) / 2
@@ -20,9 +20,16 @@ class Tree
     @root = root
   end
 
-  # def insert(value)
-  #   return build_tree([value]) if @root.nil?
+  # Insert a value without balancing the tree. Does not check for empty tree, since tree is initialized with an array.
+  def insert(value, node = @root)
+    if value < node.data
+      return node.left = Node.new(value) if node.left.nil?
 
-  #   compare(@root.left, value) if value < root.data
-  # end
+      insert(value, node.left)
+    elsif value > node.data
+      return node.right = Node.new(value) if node.right.nil?
+
+      insert(value, node.right)
+    end
+  end
 end
