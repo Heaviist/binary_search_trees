@@ -8,5 +8,5 @@ tree = Tree.new(array)
 tree.build_tree
 p tree.root
 
-tree.insert(2)
-p tree
+tree.delete(6)
+p tree.root

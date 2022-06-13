@@ -32,4 +32,16 @@ class Tree
       insert(value, node.right)
     end
   end
+
+  def delete(value, node = @root)
+    if value < node.data
+      return node.left = nil if node.left.data == value && node.left.left.nil? && node.left.right.nil?
+
+      delete(value, node.left)
+    else
+      return node.right = nil if node.right.data == value && node.right.left.nil? && node.right.right.nil?
+
+      delete(value, node.right)
+    end
+  end
 end
