@@ -31,6 +31,18 @@ class Tree
     node
   end
 
+  def find(value, node = @root)
+    return nil if node.nil?
+
+    if value < node.data
+      find(value, node.left)
+    elsif value > node.data
+      find(value, node.right)
+    elsif value == node.data
+      node
+    end
+  end
+
   private
 
   def replacement_node(node)
