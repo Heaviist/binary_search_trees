@@ -5,43 +5,31 @@ class Tree
   attr_accessor :root
 
   def initialize(array)
-    @base_array = array.uniq.sort
-    @root = Node.new(nil)
+    @root = build_tree(array.uniq.sort)
   end
 
-  def build_tree(array = @base_array, index_start = 0, index_end = (array.size - 1))
-    return if index_start > index_end
-
-    mid = (index_start + index_end) / 2
-    root = Node.new(array[mid])
-    root.left = build_tree(array, index_start, mid - 1)
-    root.right = build_tree(array, mid + 1, index_end)
-
-    @root = root
-  end
-
-  # Insert a value without balancing the tree. Does not check for empty tree, since tree is initialized with an array.
   def insert(value, node = @root)
     if value < node.data
-      return node.left = Node.new(value) if node.left.nil?
+      return insert(value, node.left) unless node.left.nil?
 
-      insert(value, node.left)
+      node.left = Node.new(value)
     elsif value > node.data
-      return node.right = Node.new(value) if node.right.nil?
+      return insert(value, node.right) unless node.right.nil?
 
-      insert(value, node.right)
+      node.right = Node.new(value)
     end
   end
 
-  def delete(value, node = @root)
-    if value < node.data
-      return node.left = nil if node.left.data == value && node.left.left.nil? && node.left.right.nil?
+  private
 
-      delete(value, node.left)
-    else
-      return node.right = nil if node.right.data == value && node.right.left.nil? && node.right.right.nil?
+  def build_tree(array, array_start = 0, array_end = array.size - 1)
+    return if array_start > array_end
 
-      delete(value, node.right)
-    end
+    array_mid = (array_start + array_end) / 2
+    node = Node.new(array[array_mid])
+    node.left = build_tree(array, array_start, array_mid - 1)
+    node.right = build_tree(array, array_mid + 1, array_end)
+
+    @root = node
   end
 end
