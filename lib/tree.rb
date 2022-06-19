@@ -20,7 +20,23 @@ class Tree
     end
   end
 
+  def delete(value, node = @root)
+    if value < node.data
+      node.left = delete(value, node.left)
+    elsif value > node.data
+      node.right = delete(value, node.right)
+    else
+      return delete_node(node)
+    end
+    node
+  end
+
   private
+
+  def delete_node(node)
+    return node.right if node.left.nil?
+    return node.left if node.right.nil?
+  end
 
   def build_tree(array, array_start = 0, array_end = array.size - 1)
     return if array_start > array_end
