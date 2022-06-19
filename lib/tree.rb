@@ -26,16 +26,26 @@ class Tree
     elsif value > node.data
       node.right = delete(value, node.right)
     else
-      return delete_node(node)
+      return replacement_node(node)
     end
     node
   end
 
   private
 
-  def delete_node(node)
+  def replacement_node(node)
     return node.right if node.left.nil?
     return node.left if node.right.nil?
+
+    node.data = min_bigger_value(node.right)
+    node.right = delete(node.data, node.right)
+    node
+  end
+
+  def min_bigger_value(node)
+    return node.data if node.left.nil?
+
+    min_bigger_value(node.left)
   end
 
   def build_tree(array, array_start = 0, array_end = array.size - 1)
