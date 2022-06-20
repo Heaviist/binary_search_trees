@@ -66,6 +66,14 @@ class Tree
     level_order_recursive(queue, output, &block)
   end
 
+  def preorder(current_node = @root, output = [], &block)
+    output << current_node.data
+    yield current_node if block_given?
+    preorder(current_node.left, output, &block) unless current_node.left.nil?
+    preorder(current_node.right, output, &block) unless current_node.right.nil?
+    output
+  end
+
   private
 
   def replacement_node(node)
