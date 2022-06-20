@@ -67,10 +67,12 @@ class Tree
   end
 
   def preorder(current_node = @root, output = [], &block)
+    return if current_node.nil?
+
     output << current_node.data
     yield current_node if block_given?
-    preorder(current_node.left, output, &block) unless current_node.left.nil?
-    preorder(current_node.right, output, &block) unless current_node.right.nil?
+    preorder(current_node.left, output, &block)
+    preorder(current_node.right, output, &block)
     output
   end
 
@@ -81,6 +83,16 @@ class Tree
     output << current_node.data
     yield current_node if block_given?
     inorder(current_node.right, output, &block)
+    output
+  end
+
+  def postorder(current_node = @root, output = [], &block)
+    return if current_node.nil?
+
+    postorder(current_node.left, output, &block)
+    postorder(current_node.right, output, &block)
+    output << current_node.data
+    yield current_node if block_given?
     output
   end
 
