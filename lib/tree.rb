@@ -74,6 +74,16 @@ class Tree
     output
   end
 
+  def inorder(current_node = @root, output = [], &block)
+    return if current_node.nil?
+
+    inorder(current_node.left, output, &block)
+    output << current_node.data
+    yield current_node if block_given?
+    inorder(current_node.right, output, &block)
+    output
+  end
+
   private
 
   def replacement_node(node)
