@@ -43,6 +43,29 @@ class Tree
     end
   end
 
+  def level_order_iterative
+    queue = [@root]
+    output = []
+    until queue.empty?
+      current_node = queue.shift
+      queue << current_node.left unless current_node.left.nil?
+      queue << current_node.right unless current_node.right.nil?
+      output << current_node.data
+      yield current_node if block_given?
+    end
+    output unless block_given?
+  end
+
+  def level_order_recursive(queue = [@root], output = [], &block)
+    return output if queue.empty?
+
+    current_node = queue.shift
+    output << current_node.data
+    yield current_node
+    queue.push(current_node.left).push(current_node.right).compact!
+    level_order_recursive(queue, output, &block)
+  end
+
   private
 
   def replacement_node(node)
