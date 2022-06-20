@@ -61,7 +61,7 @@ class Tree
 
     current_node = queue.shift
     output << current_node.data
-    yield current_node
+    yield current_node if block_given?
     queue.push(current_node.left).push(current_node.right).compact!
     level_order_recursive(queue, output, &block)
   end
