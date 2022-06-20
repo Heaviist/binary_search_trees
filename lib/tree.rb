@@ -8,7 +8,7 @@ class Tree
     @root = build_tree(array.uniq.sort)
   end
 
-  def insert(value, node = @root)
+  def insert(value, node = root)
     if value < node.data
       return insert(value, node.left) unless node.left.nil?
 
@@ -20,7 +20,7 @@ class Tree
     end
   end
 
-  def delete(value, node = @root)
+  def delete(value, node = root)
     if value < node.data
       node.left = delete(value, node.left)
     elsif value > node.data
@@ -31,7 +31,7 @@ class Tree
     node
   end
 
-  def find(value, node = @root)
+  def find(value, node = root)
     return nil if node.nil?
 
     if value < node.data
@@ -43,9 +43,7 @@ class Tree
     end
   end
 
-  def level_order_iterative
-    queue = [@root]
-    output = []
+  def level_order_iterative(queue = [root], output = [])
     until queue.empty?
       current_node = queue.shift
       queue << current_node.left unless current_node.left.nil?
@@ -53,10 +51,10 @@ class Tree
       output << current_node.data
       yield current_node if block_given?
     end
-    output unless block_given?
+    output
   end
 
-  def level_order_recursive(queue = [@root], output = [], &block)
+  def level_order_recursive(queue = [root], output = [], &block)
     return output if queue.empty?
 
     current_node = queue.shift
@@ -66,7 +64,7 @@ class Tree
     level_order_recursive(queue, output, &block)
   end
 
-  def preorder(current_node = @root, output = [], &block)
+  def preorder(current_node = root, output = [], &block)
     return if current_node.nil?
 
     output << current_node.data
@@ -76,7 +74,7 @@ class Tree
     output
   end
 
-  def inorder(current_node = @root, output = [], &block)
+  def inorder(current_node = root, output = [], &block)
     return if current_node.nil?
 
     inorder(current_node.left, output, &block)
@@ -86,7 +84,7 @@ class Tree
     output
   end
 
-  def postorder(current_node = @root, output = [], &block)
+  def postorder(current_node = root, output = [], &block)
     return if current_node.nil?
 
     postorder(current_node.left, output, &block)
@@ -94,6 +92,16 @@ class Tree
     output << current_node.data
     yield current_node if block_given?
     output
+  end
+
+  # Returns height of node. Returns -1 if the node or value does not exist
+  def height(node = root)
+    # node = find(node) unless node.instance_of? Node
+    return -1 if node.nil?
+
+    left_height = height(node.left)
+    right_height = height(node.right)
+    [left_height, right_height].max + 1
   end
 
   private
@@ -121,6 +129,6 @@ class Tree
     node.left = build_tree(array, array_start, array_mid - 1)
     node.right = build_tree(array, array_mid + 1, array_end)
 
-    @root = node
+    node
   end
 end
