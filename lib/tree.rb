@@ -104,6 +104,18 @@ class Tree
     [left_height, right_height].max + 1
   end
 
+  def depth(target_node, current_node = root, node_depth = 0)
+    return -1 if target_node.nil?
+    return node_depth if current_node == target_node
+
+    node_depth += 1
+    if target_node.data < current_node.data
+      depth(target_node, current_node.left, node_depth)
+    else
+      depth(target_node, current_node.right, node_depth)
+    end
+  end
+
   private
 
   def replacement_node(node)
