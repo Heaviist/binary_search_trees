@@ -94,9 +94,9 @@ class Tree
     output
   end
 
-  # Returns height of node. Returns -1 if the node or value does not exist
+  # Returns height of node. Returns -1 if the node or value does not exist.
+  ## Use Tree.find or other methods returning a node to use a node other than root.
   def height(node = root)
-    # node = find(node) unless node.instance_of? Node
     return -1 if node.nil?
 
     left_height = height(node.left)
