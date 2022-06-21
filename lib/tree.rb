@@ -116,6 +116,14 @@ class Tree
     end
   end
 
+  def balanced?(node = root, balanced = true)
+    return false if (height(node.left) - height(node.right)).abs > 1 || balanced == false
+
+    balanced = balanced?(node.left, balanced) unless node.left.nil?
+    balanced = balanced?(node.right, balanced) unless node.right.nil?
+    balanced
+  end
+
   private
 
   def replacement_node(node)
