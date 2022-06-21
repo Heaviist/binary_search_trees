@@ -124,6 +124,21 @@ class Tree
     balanced
   end
 
+  def rebalance
+    if balanced?
+      root
+    else
+      @root = build_tree(inorder(root))
+    end
+  end
+
+  # Suggested code snippet from The Odin Project's BST assignment page
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+
   private
 
   def replacement_node(node)
