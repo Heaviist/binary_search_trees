@@ -23,12 +23,18 @@ According to the following steps:
 1. I expect this to be somewhat similar to the Linked Lists but at the same time will take some time to wrap my head around again.
 2. Most methods seem fairly obvious in functionality. Writing some pseudo code might be quite helpful for the more tricky ones.
 3. I'm expecting the methods that work with blocks to be quite challenging, especially the first one.
-4. the rebelancing method might be quite a hassle to get all the steps right.
+4. the rebalancing method might be quite a hassle to get all the steps right.
 5. Mostly expecting it to be quite fun to see the whole thing work.
 6. Will probably work with a main.rb file with some of the methods applied for some easy testing and understanding.
 
 # Results and Evaluation
-To be added later.
+1. All functionality is there. The only remaining issue is the #initialize / #build_tree methods not returning the root node due to the object not supporting #inspect warning.
+2. I should have written a little more pseudo code at the start. Restarting from scratch to wrap my head around everything in a slightly different mindset definitely helped.
+3. This turned out to be way more intuitive than I expected it to be. I guess the blocks and procs stuff seems rather vague until you start using it. Using the &arg in recursion was an interesting twist.
+4. Rebalancing, again, turned out to be straightforward with all the previous steps done properly.
+5. Very much so, after some frustration.
+6. I didn't do this before, but makes sense to keep things organized.
 
 # Notes for future revisiting
-To be added later.
+1. The previously mentioned "object doesn't support #inspect" thing could be something to look at further.
+2. Some methods could probably be cleaned up and be made more concise.
